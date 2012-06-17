@@ -1,0 +1,5 @@
+c:\users\user\documents\visual studio 2010\Projects\WebSharperDemo\WebSharperDemo\Website\bin\Debug\Website.dll
+c:\users\user\documents\visual studio 2010\Projects\WebSharperDemo\WebSharperDemo\Website\bin\Debug\Website.pdb
+c:\users\user\documents\visual studio 2010\Projects\WebSharperDemo\WebSharperDemo\Website\obj\Debug\Website.dll
+c:\users\user\documents\visual studio 2010\Projects\WebSharperDemo\WebSharperDemo\Website\obj\Debug\Website.pdb
+c:\Users\user\Documents\Visual Studio 2010\Projects\WebSharperDemo\WebSharperDemo\Website\obj\Debug\Website.fsprojResolveAssemblyReference.cache
