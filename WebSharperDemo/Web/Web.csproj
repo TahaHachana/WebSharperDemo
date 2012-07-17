@@ -38,10 +38,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
-    <Content Include="Images\Slideshow\slide1.png" />
-    <Content Include="Images\Slideshow\slide2.png" />
-    <Content Include="Images\Slideshow\slide3.png" />
-    <Content Include="Images\Slideshow\slide4.png" />
+    <Content Include="Images\Slideshow\Slide1.jpg" />
+    <Content Include="Images\Slideshow\Slide2.jpg" />
+    <Content Include="Images\Slideshow\Slide3.jpg" />
+    <Content Include="Images\Slideshow\Slide4.jpg" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\*.js" />
     <Content Include="Content\**\*.*" />

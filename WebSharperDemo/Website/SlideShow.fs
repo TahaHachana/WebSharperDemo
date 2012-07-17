@@ -82,13 +82,13 @@ module Slideshow =
     [<JavaScriptAttribute>]
     let slides =
         [
-            {Src = "Images/Slideshow/slide1.png"; Alt = "Slide 1";
+            {Src = "Images/Slideshow/Slide1.jpg"; Alt = "Slide 1";
                 Heading = "Slide 1"; Description = "Slide 1 description"; Href = "#"}
-            {Src = "Images/Slideshow/slide2.png"; Alt = "Slide 2";
+            {Src = "Images/Slideshow/Slide2.jpg"; Alt = "Slide 2";
                 Heading = "Slide 2"; Description = "Slide 2 description"; Href = "#"}
-            {Src = "Images/Slideshow/slide3.png"; Alt = "Slide 3";
+            {Src = "Images/Slideshow/Slide3.jpg"; Alt = "Slide 3";
                 Heading = "Slide 3"; Description = "Slide 3 description"; Href = "#"}
-            {Src = "Images/Slideshow/slide4.png"; Alt = "Slide 4";
+            {Src = "Images/Slideshow/Slide4.jpg"; Alt = "Slide 4";
                 Heading = "Slide 4"; Description = "Slide 4 description"; Href = "#"}
         ] |> List.map (fun x -> slideDiv x "400" "900")
 
