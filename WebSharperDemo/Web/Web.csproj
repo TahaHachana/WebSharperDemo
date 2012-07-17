@@ -38,13 +38,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
-    <Content Include="Images\control_left.jpg" />
-    <Content Include="Images\control_right.jpg" />
-    <Content Include="Images\img1.jpg" />
-    <Content Include="Images\img2.jpg" />
-    <Content Include="Images\img3.jpg" />
+    <Content Include="Images\Slideshow\slide1.png" />
+    <Content Include="Images\Slideshow\slide2.png" />
+    <Content Include="Images\Slideshow\slide3.png" />
+    <Content Include="Images\Slideshow\slide4.png" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\*.js" />
     <Content Include="Content\**\*.*" />
+    <Content Include="Styles\bootstrap.css" />
     <Content Include="Styles\StyleSheet1.css" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Views\**\*.*" />
