@@ -3,6 +3,7 @@
 open IntelliFactory.Html
 open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.Sitelets
+open Slideshow
 
 type Action =
     | Home
@@ -54,11 +55,28 @@ module Site =
             ]
 
     let SlideshowPage =
-        Skin.WithTemplate "WebSharper Slideshow" <| fun ctx ->
+        Skin.WithTemplate "WebSharper Slideshow | WebSharper Carousel" <| fun ctx ->
             [
-                LI ["Home" => ctx.Link Home]
-                Div [new Website.SlideshowViewer ()]
+                Div [Class "span3"] -< [
+                    LI ["Home" => ctx.Link Home]
+                ]
+                Div [Class "span9"] -< [
+                    Div [Class "page-header"] -< [
+                        H1 [Text "WebSharper Slideshow"]
+                    ]
+                    Div [new SlideshowViewer ()]
+                ]
             ]
+
+    let notFoundPage : Content<Action> =
+        CustomContent <| fun context ->
+            {
+                Status = Http.Status.NotFound
+                Headers = []
+                WriteBody = fun stream ->
+                    use stw = new System.IO.StreamWriter(stream)
+                    stw.WriteLine "Test"
+            }
 
     let Main =
         Sitelet.Sum [

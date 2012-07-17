@@ -6,63 +6,105 @@ open IntelliFactory.WebSharper.JQuery
 
 module Slideshow =
 
-    [<JavaScriptAttribute>]
-    let image path alt =
-        Div [Attr.Class "slide"] -<
-            [ Img [Attr.Src path; Attr.Alt alt; Attr.Width "560"; Attr.Height "263"] ]
+    type AnimationConfig = { left : int }
+
+    type Slide =
+        {
+            Src         : string
+            Alt         : string
+            Heading     : string
+            Description : string
+            Href        : string
+        }
 
     [<JavaScriptAttribute>]
-    let slides () =
+    let animateSlideshow (animationSpeed : int) interval =
+        let animationAllowed = ref true
+        let slider = JQuery.Of("#slidesContainer")
+        let frameWidth = slider.Width()
+        let frameWidth' = "-" + string frameWidth + "px"
+        let itemCount = JQuery.Of(".slide").Length
+        let width = string (itemCount * frameWidth) + "px"
+            
+        slider.Css("width", width).Ignore
+        JQuery.Of(".slide").Filter(":first")
+            .Before(JQuery.Of(".slide").Filter(":last")).Ignore
+        slider.Css("left", frameWidth').Ignore
+               
+        let slideLeft () =
+            animationAllowed := false
+            JQuery.Of(".slide").Filter(":last")
+                .After(JQuery.Of(".slide").Filter(":first")).Ignore
+            slider.Css("left", "0px").Ignore
+            slider.Animate(
+                {left = - frameWidth},
+                animationSpeed,
+                (fun () -> animationAllowed := true)).Ignore
+
+        let slideRight () =
+            animationAllowed := false
+            slider.Animate(
+                {left = 0},
+                animationSpeed,
+                (fun () ->
+                    slider.Css("left", frameWidth').Ignore
+                    JQuery.Of(".slide").Filter(":first")
+                        .Before(JQuery.Of(".slide").Filter(":last")).Ignore
+                    animationAllowed := true)).Ignore
+
+        let autoSlide () =
+            match !animationAllowed with
+                | false -> ()
+                | true  -> slideLeft ()
+
+        JavaScript.SetInterval autoSlide interval |> ignore 
+            
+        JQuery.Of(".slide").Hover(fun _ _ -> animationAllowed := false).Ignore
+        JQuery.Of(".slide").Mouseout(fun _ _ -> animationAllowed := true).Ignore
+
+        JQuery.Of(".carouselControl").Click(fun x _ ->
+            JQuery.Of(x).Attr("id") = "rightControl"
+            |> function
+                | false -> slideLeft ()
+                | true  -> slideRight ()).Ignore
+
+    [<JavaScriptAttribute>]
+    let slideDiv (slide : Slide) height width =
+        Div [Attr.Class "slide"] -< [
+            Img [Src slide.Src; Alt slide.Alt; Height height; Width width]
+            Div [Attr.Class "carouselCaption"] -< [
+                H4 [Text slide.Heading]
+                P [Text slide.Description]
+                A [Text "Click Here"; HRef slide.Href]
+            ]
+        ]
+    
+    [<JavaScriptAttribute>]
+    let slides =
+        [
+            {Src = "Images/Slideshow/slide1.png"; Alt = "Slide 1";
+                Heading = "Slide 1"; Description = "Slide 1 description"; Href = "#"}
+            {Src = "Images/Slideshow/slide2.png"; Alt = "Slide 2";
+                Heading = "Slide 2"; Description = "Slide 2 description"; Href = "#"}
+            {Src = "Images/Slideshow/slide3.png"; Alt = "Slide 3";
+                Heading = "Slide 3"; Description = "Slide 3 description"; Href = "#"}
+            {Src = "Images/Slideshow/slide4.png"; Alt = "Slide 4";
+                Heading = "Slide 4"; Description = "Slide 4 description"; Href = "#"}
+        ] |> List.map (fun x -> slideDiv x "400" "900")
+
+    [<JavaScriptAttribute>]
+    let slideshow () =
         Div [Attr.Id "slideshow"] -< [
             Div [Attr.Id "slidesContainer"] -< [
-                image "Images/img1.jpg" "Slide 1"
-                image "Images/img2.jpg" "Slide 2"
-                image "Images/img3.jpg" "Slide 3"
-
-//                Div [Attr.Class "slide"] -<
-//                    [ Img [Attr.Src "Images/img1.jpg"; Attr.Alt ""; Attr.Width "560"; Attr.Height "263"] ]
-//                Div [Attr.Class "slide"] -<
-//                    [ Img [Attr.Src "Images/img2.jpg"; Attr.Alt ""; Attr.Width "560"; Attr.Height "263"] ]
-//                Div [Attr.Class "slide"] -<
-//                    [ Img [Attr.Src "Images/img3.jpg"; Attr.Alt ""; Attr.Width "560"; Attr.Height "263"] ]
+                yield! slides
                 ]
-            ]
+            Span [Attr.Class "carouselControl"; Id "leftControl"; Text "‹"]
+            Span [Attr.Class "carouselControl"; Id "rightControl"; Text "›"]
+            ] |>! OnAfterRender (fun _ -> animateSlideshow 700 4000)
 
-    type AnimateConfiguration = { marginLeft : int }
+    type SlideshowViewer () =
+        inherit Web.Control ()
 
-    [<JavaScriptAttribute>]
-    let main () =
-        JQuery.Of(Dom.Document.Current).Ready(fun () ->
-            let currentPosition = ref 0
-            let slideWidth = 560
-            let slides = JQuery.Of(".slide")
-            let numberOfSlides = slides.Length
-            JQuery.Of("#slidesContainer").Css("overflow", "hidden").Ignore
-            slides
-              .WrapAll("<div id=\"slideInner\"></div>")
-              .Css("float", "left").Css("width", string slideWidth).Ignore
-            JQuery.Of("#slideInner").Css("width", string (slideWidth * numberOfSlides)).Ignore
-            JQuery.Of("#slideInner")
-                .Prepend("<span class=\"control\" id=\"leftControl\">Move left</span>")
-                .Append("<span class=\"control\" id=\"rightControl\">Move right</span>").Ignore
-            let manageControls position =
-                if (!position = 0) then JQuery.Of("#leftControl").Hide().Ignore
-                else JQuery.Of("#leftControl").Show().Ignore
-                if (!position = (numberOfSlides - 1)) then JQuery.Of("#rightControl").Hide().Ignore
-                else JQuery.Of("#rightControl").Show().Ignore
-
-            JQuery.Of(".control").Click(fun x y ->
-                let current = JQuery.Of(x).Attr("id") = "rightControl"
-                if current then currentPosition := (!currentPosition + 1) else currentPosition := (!currentPosition - 1)
-                manageControls currentPosition
-                let animation = slideWidth * (- !currentPosition)
-                JQuery.Of("#slideInner").Animate({ marginLeft = animation}, 300).Ignore).Ignore
-            manageControls currentPosition).Ignore
-
-type SlideshowViewer () =
-    inherit Web.Control ()
-
-    [<JavaScriptAttribute>]
-    override this.Body =
-        Slideshow.main ()
-        Slideshow.slides () :> _
+        [<JavaScriptAttribute>]
+        override this.Body =
+            slideshow () :> _
