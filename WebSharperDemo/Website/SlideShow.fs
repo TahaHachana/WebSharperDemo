@@ -59,7 +59,7 @@ module Slideshow =
 
         JavaScript.SetInterval autoSlide interval |> ignore 
             
-        JQuery.Of(".slide").Hover(fun _ _ -> animationAllowed := false).Ignore
+        JQuery.Of(".slide, .carouselControl").Hover(fun _ _ -> animationAllowed := false).Ignore
         JQuery.Of(".slide").Mouseout(fun _ _ -> animationAllowed := true).Ignore
 
         JQuery.Of(".carouselControl").Click(fun x _ ->
