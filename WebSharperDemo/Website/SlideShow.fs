@@ -59,7 +59,7 @@ module Slideshow =
 
         JavaScript.SetInterval autoSlide interval |> ignore 
             
-        JQuery.Of(".slide, .carouselControl").Hover(fun _ _ -> animationAllowed := false).Ignore
+        JQuery.Of(".slide, .carouselControl").Mouseenter(fun _ _ -> animationAllowed := false).Ignore
         JQuery.Of(".slide").Mouseout(fun _ _ -> animationAllowed := true).Ignore
 
         JQuery.Of(".carouselControl").Click(fun x _ ->
@@ -90,7 +90,7 @@ module Slideshow =
                 Heading = "Slide 3"; Description = "Slide 3 description"; Href = "#"}
             {Src = "Images/Slideshow/Slide4.jpg"; Alt = "Slide 4";
                 Heading = "Slide 4"; Description = "Slide 4 description"; Href = "#"}
-        ] |> List.map (fun x -> slideDiv x "400" "900")
+        ] |> List.map (fun x -> slideDiv x "512" "958")
 
     [<JavaScriptAttribute>]
     let slideshow () =
