@@ -65,8 +65,8 @@ module Slideshow =
         JQuery.Of(".carouselControl").Click(fun x _ ->
             JQuery.Of(x).Attr("id") = "rightControl"
             |> function
-                | false -> slideLeft ()
-                | true  -> slideRight ()).Ignore
+                | false -> slideRight ()
+                | true  -> slideLeft ()).Ignore
 
     [<JavaScriptAttribute>]
     let slideDiv (slide : Slide) height width =

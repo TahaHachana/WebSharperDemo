@@ -1,8 +1,12 @@
 WebSharperDemo
 ==============
 
-License
--------
+About
+-----
+A collection of WebSharper samples hosted on the AppHarbor cloud: http://websharperdemo.apphb.com/
+
+MIT License
+-----------
 
 Copyright © 2012 Taha Hachana
 
@@ -11,3 +15,11 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Contact
+-------
+
+* Email   : tahahachana@gmail.com
+* Blog    : http://fsharp-code.blogspot.com/
+* Google+ : https://plus.google.com/103826666258148033768/
+* Twitter : https://twitter.com/TahaHachana
