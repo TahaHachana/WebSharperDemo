@@ -41,10 +41,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="IntelliFactory.WebSharper.JQueryUI">
-      <HintPath>..\..\packages\WebSharper.JQueryUi.2.4.56.140\lib\IntelliFactory.WebSharper.JQueryUI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="Spidy">
