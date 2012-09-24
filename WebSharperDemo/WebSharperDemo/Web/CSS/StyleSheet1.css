@@ -1,0 +1,103 @@
+﻿#slideshow
+{
+     height: 512px;
+     width: 958px;
+     margin: 0 auto;
+     overflow:hidden;
+     position: relative;
+     border:6px solid LightGray;
+     -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+             border-radius: 7px;     
+}
+ 
+#slidesContainer
+{
+     position: relative;
+}
+ 
+.slide
+{
+     float: left;
+     position: relative;
+}
+
+#leftControl
+{
+  left: 15px;
+}
+
+#rightControl
+{
+  right: 15px;
+}
+
+.carouselControl
+{
+  position: absolute;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  font-size: 60px;
+  font-weight: 100;
+  line-height: 30px;
+  color: #ffffff;
+  text-align: center;
+  background: #222222;
+  border: 3px solid #ffffff;
+  -webkit-border-radius: 23px;
+     -moz-border-radius: 23px;
+          border-radius: 23px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.carouselControl:hover
+{
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+  cursor: pointer;
+}
+
+.carouselCaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 10px 15px 5px;
+  background: #333333;
+  background: rgba(0, 0, 0, 0.70);
+  color: White;
+}
+
+h4, div.slide a
+{
+    color: White;
+    text-decoration: none;
+}
+
+.loader
+{
+    visibility: hidden;
+    margin-bottom: 12px;
+}
+
+.url
+{
+    width: 500px;
+}
+
+#seed
+{
+    width: 400px;
+}
+
+.footer
+{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
