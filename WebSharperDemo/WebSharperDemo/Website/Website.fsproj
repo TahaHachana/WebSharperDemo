@@ -34,6 +34,7 @@
   <Import Project="WebSharper.targets" Condition="Exists('WebSharper.targets')" />
   <Import Project="$(WEBSHARPER_HOME)/IntelliFactory.WebSharper.Sitelets.targets" />
   <ItemGroup>
+    <Compile Include="Html5Logo.fs" />
     <Compile Include="Crawler.fs" />
     <Compile Include="Slideshow.fs" />
     <Compile Include="Site.fs" />

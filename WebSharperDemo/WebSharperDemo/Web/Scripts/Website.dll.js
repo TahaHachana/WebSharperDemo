@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,jQuery,Website,Crawler,Client,WebSharper,Arrays,document,Html,Default,List,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Slideshow,setInterval,Operators,Seq;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,jQuery,Website,Crawler,Client,WebSharper,Arrays,document,Html,Default,List,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Html5Logo,Client1,HTML5,Operators,Seq,Slideshow,setInterval;
  Runtime.Define(Global,{
   Website:{
    Crawler:{
@@ -177,6 +177,83 @@
      }
     })
    },
+   Html5Logo:{
+    Client:{
+     LogoViewer:Runtime.Class({
+      get_Body:function()
+      {
+       return Client1.canvas();
+      }
+     }),
+     canvas:function()
+     {
+      var element,_this,x,_this1,canvas,context,f,f1;
+      element=(_this=HTML5.Tags(),(x=List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","display: none;"))]),_this.NewTag("canvas",x)));
+      canvas=element.Body;
+      canvas.height=400;
+      canvas.width=600;
+      context=canvas.getContext("2d");
+      context.font="60px 'Gill Sans Ultra Bold'";
+      context.fillText("HTML",40,60);
+      context.translate(0,70);
+      Client1.drawShape(context,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
+      Client1.drawShape(context,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
+      Client1.drawShape(context,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
+      Client1.drawShape(context,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
+      Client1.drawShape(context,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
+      Client1.drawShape(context,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
+      f=(f1=function(x1)
+      {
+       return jQuery(x1.Body).fadeIn(1000);
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(element);
+      return element;
+     },
+     drawLine:function(context,x,y)
+     {
+      return context.lineTo(x,y);
+     },
+     drawPaths:function(context,coords)
+     {
+      var f,action;
+      f=(action=Runtime.Tupled(function(tupledArg)
+      {
+       var x,y;
+       x=tupledArg[0];
+       y=tupledArg[1];
+       return Client1.drawLine(context,x,y);
+      }),function(list)
+      {
+       return Seq.iter(action,list);
+      });
+      f(coords);
+      context.closePath();
+      return context.fill();
+     },
+     drawShape:function(_,_1,_2,_3,_4)
+     {
+      return((Runtime.Tupled(function(moveTo)
+      {
+       return function(coords)
+       {
+        _.fillStyle=_1;
+        _.beginPath();
+        (Runtime.Tupled(function(tupledArg)
+        {
+         var arg00,arg01;
+         arg00=tupledArg[0];
+         arg01=tupledArg[1];
+         return _.moveTo(arg00,arg01);
+        }))(moveTo);
+        return Client1.drawPaths(_,coords);
+       };
+      }))([_2,_3]))(_4);
+     }
+    }
+   },
    Slideshow:{
     SlideshowViewer:Runtime.Class({
      get_Body:function()
@@ -342,10 +419,13 @@
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
-  Slideshow=Runtime.Safe(Website.Slideshow);
-  setInterval=Runtime.Safe(Global.setInterval);
+  Html5Logo=Runtime.Safe(Website.Html5Logo);
+  Client1=Runtime.Safe(Html5Logo.Client);
+  HTML5=Runtime.Safe(Default.HTML5);
   Operators=Runtime.Safe(Html.Operators);
-  return Seq=Runtime.Safe(WebSharper.Seq);
+  Seq=Runtime.Safe(WebSharper.Seq);
+  Slideshow=Runtime.Safe(Website.Slideshow);
+  return setInterval=Runtime.Safe(Global.setInterval);
  });
  Runtime.OnLoad(function()
  {

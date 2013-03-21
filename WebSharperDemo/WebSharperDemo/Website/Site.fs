@@ -9,6 +9,7 @@ type Action =
     | Home
     | Crawler
     | Custom404
+    | Html5Logo
     | Slideshow
 
 module Skin =
@@ -37,7 +38,7 @@ module Skin =
         Content.WithTemplate MainTemplate <| fun context ->
             {
                 Title = title
-                Body = body context
+                Body  = body context
             }
 
 module Site =
@@ -47,14 +48,22 @@ module Site =
 
     let Links (ctx: Context<Action>) =
         UL [
-            LI ["Slideshow"   => ctx.Link Slideshow]
-            LI ["Web Crawler" => ctx.Link Crawler]
+            LI ["Slideshow"      => ctx.Link Slideshow]
+            LI ["Web Crawler"    => ctx.Link Crawler]
+            LI ["Canvas Drawing" => ctx.Link Html5Logo]
         ]
+
+//    let footer() =
+//        HTML5.Footer [
+//            P [Text "Powered by "]
+//            A [HRef "http://www.websharper.com/"] -< [Text "WebSharper"]
+//        ]
 
     let HomePage =
         Skin.WithTemplate "WebSharper Demo" <| fun ctx ->
             [
                 Links ctx
+//                footer()
             ]
     
     let CrawlerPage =
@@ -79,16 +88,9 @@ module Site =
                             ]
                         ]
                     ]
+//                    footer()
                 ]
             ]
-//                <table id="table" class="table table-bordered table-striped">
-//      <caption>1 Mot Cl&#233;</caption>
-//      <tr>
-//        <th>Combinaison</th>
-//        <th>Occurence</th>
-//        <th>Densit&#233;</th>
-//      </tr>
-//    </table>
         
     let Custom404Page =
         Skin.WithTemplate "WebSharper Slideshow | WebSharper Carousel" <| fun ctx ->
@@ -96,6 +98,22 @@ module Site =
                 Div [
                     P [Text "The page you're trying to access doesn't exist."]
                     LI ["Home" => ctx.Link Home]
+//                    footer()
+                ]
+            ]
+
+    let Html5LogoPage =
+        Skin.WithTemplate "Drawing On The Canvas With WebSharper" <| fun ctx ->
+            [
+                Div [Class "span2"] -< [
+                    LI ["Home" => ctx.Link Home]
+                ]
+                Div [Class "span10"] -< [
+                    Div [Class "page-header"] -< [
+                        H1 [Text "Drawing the HTML5 logo on the canvas"]
+                    ]
+                    Div [Class "offset3"] -< [new Html5Logo.Client.LogoViewer()]
+//                    footer()
                 ]
             ]
 
@@ -110,6 +128,7 @@ module Site =
                         H1 [Text "WebSharper Slideshow"]
                     ]
                     Div [new SlideshowViewer ()]
+//                    footer()
                 ]
             ]
 
@@ -118,13 +137,14 @@ module Site =
             Sitelet.Content "/"          Home HomePage
             Sitelet.Content "/Crawler"   Crawler CrawlerPage
             Sitelet.Content "/Custom404" Custom404 Custom404Page
+            Sitelet.Content "/Html5Logo" Html5Logo Html5LogoPage
             Sitelet.Content "/Slideshow" Slideshow SlideshowPage
         ]
 
 type Website() =
     interface IWebsite<Action> with
         member this.Sitelet = Site.Main
-        member this.Actions = [Home; Slideshow]
+        member this.Actions = []
 
 [<assembly: WebsiteAttribute(typeof<Website>)>]
 do ()
