@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
-    <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\StyleSheet1.css" />
     <Content Include="Images\Carousel\Slide1.jpg" />
     <Content Include="Images\Carousel\Slide2.jpg" />

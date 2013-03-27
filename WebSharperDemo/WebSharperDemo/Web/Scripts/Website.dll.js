@@ -1,10 +1,16 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,jQuery,Website,Crawler,Client,WebSharper,Arrays,document,Html,Default,List,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Html5Logo,Client1,HTML5,Operators,Seq,Slideshow,setInterval;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Crawler,Client,jQuery,WebSharper,Arrays,Html,Default,List,HTML5,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Forkme,Operators,Geolocation,google,Unchecked,Strings,window,Html5Logo,Client1,Seq,Slideshow,setInterval;
  Runtime.Define(Global,{
   Website:{
    Crawler:{
     Client:{
+     Viewer:Runtime.Class({
+      get_Body:function()
+      {
+       return Client.urlForm();
+      }
+     }),
      appendTd:function(text,tableRow)
      {
       return jQuery("<td/>").text(text).appendTo(tableRow);
@@ -36,13 +42,6 @@
       });
       return f1(x);
      },
-     focusInput:function()
-     {
-      return jQuery(document).ready(function()
-      {
-       return jQuery("#seed").focus();
-      });
-     },
      removeRows:function(selector)
      {
       return jQuery(selector).each(function(idx)
@@ -68,8 +67,8 @@
      },
      urlForm:function()
      {
-      var urlInput,x,f,x1,submitBtn,x2,f1,x3,urlInputFormlet,x6,f5,submitBtnFormlet,form,x7,x8,f6;
-      urlInput=(x=Default.Input(List.ofArray([Default.Id("seed")])),(f=(x1=function()
+      var urlInput,x,_this,f,x1,submitBtn,x2,f1,x3,urlInputFormlet,x6,f5,submitBtnFormlet,form,x7,x8,f6;
+      urlInput=(x=Default.Input(List.ofArray([Default.Id("seed"),(_this=HTML5.Attr(),_this.NewAttr("autofocus","autofocus"))])),(f=(x1=function()
       {
        return function(key)
        {
@@ -168,18 +167,144 @@
        return null;
       },form);
      }
-    },
-    CrawlerFormViewer:Runtime.Class({
+    }
+   },
+   Forkme:{
+    Viewer:Runtime.Class({
      get_Body:function()
      {
-      Client.focusInput();
-      return Client.urlForm();
+      return Forkme.ribbon();
      }
-    })
+    }),
+    ribbon:function()
+    {
+     return Operators.add(Default.A(List.ofArray([Default.HRef("https://github.com/TahaHachana/WebSharperDemo")])),List.ofArray([Default.Img(List.ofArray([Default.Src("https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"),Default.Alt("Fork me on GitHub"),Default.Id("forkme")]))]));
+    }
+   },
+   Geolocation:{
+    Viewer:Runtime.Class({
+     get_Body:function()
+     {
+      return Geolocation.main();
+     }
+    }),
+    main:function()
+    {
+     var div,x,_this,f,f1,btn;
+     div=(x=Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","padding-bottom:20px; width:500px; height:300px;"))])),(f=(f1=function(elt)
+     {
+      var center,options,map;
+      center=new google.maps.LatLng(37.4419,-122.1419);
+      options={
+       zoom:14,
+       center:center,
+       mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+      map=new google.maps.Map(elt.Body,options);
+      return jQuery("#locate-me").click(function()
+      {
+       var x1,f2,f7;
+       x1=(f2=function()
+       {
+        var x2,f3;
+        x2=Geolocation.position();
+        f3=function(_arg1)
+        {
+         var coords,center1,markerOptions,marker,req,returnVal,addressElt,x3,_this1,iwOptions,iw,x7,f6;
+         coords=_arg1.coords;
+         center1=new google.maps.LatLng(coords.latitude,coords.longitude);
+         map.panTo(center1);
+         markerOptions={
+          position:center1
+         };
+         markerOptions.map=map;
+         marker=new google.maps.Marker(markerOptions);
+         req=(returnVal=[{}],(null,returnVal[0].bounds=new google.maps.LatLngBounds(center1),returnVal[0]));
+         addressElt=(x3=List.ofArray([Default.Text("")]),(_this1=Default.Tags(),_this1.NewTag("address",x3)));
+         (new google.maps.Geocoder()).geocode(req,Runtime.Tupled(function(tupledArg)
+         {
+          var results,status,address,x4,x5,f4,mapping,f5;
+          results=tupledArg[0];
+          status=tupledArg[1];
+          if(Unchecked.Equals(status,google.maps.GeocoderStatus.OK))
+           {
+            address=(x4=(x5=results[0].address_components,(f4=(mapping=function(x6)
+            {
+             return x6.short_name;
+            },function(array)
+            {
+             return Arrays.map(mapping,array);
+            }),f4(x5))),(f5=function(strings)
+            {
+             return Strings.concat(", ",strings);
+            },f5(x4)));
+            return addressElt.set_Html(address);
+           }
+          else
+           {
+            return null;
+           }
+         }));
+         iwOptions={};
+         iwOptions.content=addressElt.Body;
+         iwOptions.position=center1;
+         iw=new google.maps.InfoWindow(iwOptions);
+         x7=google.maps.event.addListener(marker,"click",function()
+         {
+          return iw.open(map);
+         });
+         f6=function(value)
+         {
+          value;
+         };
+         f6(x7);
+         return Concurrency.Return(null);
+        };
+        return Concurrency.Bind(x2,f3);
+       },Concurrency.Delay(f2));
+       f7=function(arg00)
+       {
+        var t;
+        t={
+         $:0
+        };
+        return Concurrency.Start(arg00);
+       };
+       return f7(x1);
+      });
+     },function(w)
+     {
+      return Operators.OnAfterRender(f1,w);
+     }),(f(x),x)));
+     btn=Operators.add(Default.Button(List.ofArray([Default.Id("locate-me"),Default.Attr().Class("btn btn-large btn-primary")])),List.ofArray([Default.Text("Locate Me")]));
+     return Default.Div(List.ofArray([div,btn]));
+    },
+    position:function()
+    {
+     var callback;
+     callback=Runtime.Tupled(function(tupledArg)
+     {
+      var onOk,_arg1,_arg2;
+      onOk=tupledArg[0];
+      _arg1=tupledArg[1];
+      _arg2=tupledArg[2];
+      return window.navigator.geolocation.getCurrentPosition(onOk);
+     });
+     return Concurrency.FromContinuations(function(ok)
+     {
+      return function(no)
+      {
+       return callback([ok,no,function(value)
+       {
+        value;
+       }]);
+      };
+     });
+    }
    },
    Html5Logo:{
     Client:{
-     LogoViewer:Runtime.Class({
+     Viewer:Runtime.Class({
       get_Body:function()
       {
        return Client1.canvas();
@@ -255,10 +380,10 @@
     }
    },
    Slideshow:{
-    SlideshowViewer:Runtime.Class({
+    Viewer:Runtime.Class({
      get_Body:function()
      {
-      return Slideshow.slideshow();
+      return Slideshow.main();
      }
     }),
     animateSlideshow:function(animationSpeed,interval)
@@ -338,6 +463,23 @@
       return f1(x1);
      });
     },
+    main:function()
+    {
+     var x,_this,_this1,f,f1;
+     x=Operators.add(Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","slideshow"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","slidesContainer"))])),Seq.toList(Seq.delay(function()
+     {
+      return Slideshow.slides();
+     }))),Default.Span(List.ofArray([Default.Attr().Class("carouselControl"),Default.Id("leftControl"),Default.Text("\u2039")])),Default.Span(List.ofArray([Default.Attr().Class("carouselControl"),Default.Id("rightControl"),Default.Text("\u203a")]))]));
+     f=(f1=function()
+     {
+      return Slideshow.animateSlideshow(700,4000);
+     },function(w)
+     {
+      return Operators.OnAfterRender(f1,w);
+     });
+     f(x);
+     return x;
+    },
     slideDiv:function(slide,height,width)
     {
      return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("slide")])),List.ofArray([Default.Img(List.ofArray([Default.Src(slide.Src),Default.Alt(slide.Alt),Default.Height(height),Default.Width(width)])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("carouselCaption")])),List.ofArray([Default.H4(List.ofArray([Default.Text(slide.Heading)])),Default.P(List.ofArray([Default.Text(slide.Description)])),Default.A(List.ofArray([Default.Text("Click Here"),Default.HRef(slide.Href)]))]))]));
@@ -378,39 +520,22 @@
       return List.map(mapping,list);
      });
      return f(x);
-    }),
-    slideshow:function()
-    {
-     var x,_this,_this1,f,f1;
-     x=Operators.add(Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("id","slideshow"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("id","slidesContainer"))])),Seq.toList(Seq.delay(function()
-     {
-      return Slideshow.slides();
-     }))),Default.Span(List.ofArray([Default.Attr().Class("carouselControl"),Default.Id("leftControl"),Default.Text("\u2039")])),Default.Span(List.ofArray([Default.Attr().Class("carouselControl"),Default.Id("rightControl"),Default.Text("\u203a")]))]));
-     f=(f1=function()
-     {
-      return Slideshow.animateSlideshow(700,4000);
-     },function(w)
-     {
-      return Operators.OnAfterRender(f1,w);
-     });
-     f(x);
-     return x;
-    }
+    })
    }
   }
  });
  Runtime.OnInit(function()
  {
-  jQuery=Runtime.Safe(Global.jQuery);
   Website=Runtime.Safe(Global.Website);
   Crawler=Runtime.Safe(Website.Crawler);
   Client=Runtime.Safe(Crawler.Client);
+  jQuery=Runtime.Safe(Global.jQuery);
   WebSharper=Runtime.Safe(Global.IntelliFactory.WebSharper);
   Arrays=Runtime.Safe(WebSharper.Arrays);
-  document=Runtime.Safe(Global.document);
   Html=Runtime.Safe(WebSharper.Html);
   Default=Runtime.Safe(Html.Default);
   List=Runtime.Safe(WebSharper.List);
+  HTML5=Runtime.Safe(Default.HTML5);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   Remoting=Runtime.Safe(WebSharper.Remoting);
   alert=Runtime.Safe(Global.alert);
@@ -419,10 +544,15 @@
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
+  Forkme=Runtime.Safe(Website.Forkme);
+  Operators=Runtime.Safe(Html.Operators);
+  Geolocation=Runtime.Safe(Website.Geolocation);
+  google=Runtime.Safe(Global.google);
+  Unchecked=Runtime.Safe(WebSharper.Unchecked);
+  Strings=Runtime.Safe(WebSharper.Strings);
+  window=Runtime.Safe(Global.window);
   Html5Logo=Runtime.Safe(Website.Html5Logo);
   Client1=Runtime.Safe(Html5Logo.Client);
-  HTML5=Runtime.Safe(Default.HTML5);
-  Operators=Runtime.Safe(Html.Operators);
   Seq=Runtime.Safe(WebSharper.Seq);
   Slideshow=Runtime.Safe(Website.Slideshow);
   return setInterval=Runtime.Safe(Global.setInterval);

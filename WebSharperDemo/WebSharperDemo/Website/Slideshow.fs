@@ -90,7 +90,7 @@ module Slideshow =
         ] |> List.map (fun x -> slideDiv x "512" "958")
 
     [<JavaScriptAttribute>]
-    let slideshow () =
+    let main() =
         Div [Attr.Id "slideshow"] -< [
             Div [Attr.Id "slidesContainer"] -< [
                 yield! slides
@@ -99,9 +99,8 @@ module Slideshow =
             Span [Attr.Class "carouselControl"; Id "rightControl"; Text "›"]
             ] |>! OnAfterRender (fun _ -> animateSlideshow 700 4000)
 
-    type SlideshowViewer () =
+    type Viewer () =
         inherit Web.Control ()
 
         [<JavaScriptAttribute>]
-        override this.Body =
-            slideshow () :> _
+        override this.Body = main () :> _

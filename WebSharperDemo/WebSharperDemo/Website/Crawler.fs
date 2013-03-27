@@ -70,9 +70,6 @@ module Crawler =
         let clearTable () = removeRows "#table tr"
 
         [<JavaScriptAttribute>]
-        let focusInput () = JQuery.Of(Dom.Document.Current).Ready(fun _ -> JQuery.Of("#seed").Focus().Ignore).Ignore
-
-        [<JavaScriptAttribute>]
         let appendTd text (tableRow : JQuery) =
             JQuery.Of("<td/>").Text(text).AppendTo(tableRow).Ignore
     
@@ -94,7 +91,7 @@ module Crawler =
         let urlForm () =
 
             let urlInput =
-                Input [Id "seed"]
+                Input [Id "seed"; HTML5.Attr.AutoFocus "autofocus"]
                 |>! OnKeyDown (fun _ key ->
                     let key' = key.KeyCode
                     match key' with
@@ -133,9 +130,7 @@ module Crawler =
 
             Formlet.Run (fun _ -> ()) form
         
-    type CrawlerFormViewer () =
-        inherit Web.Control ()
-        [<JavaScriptAttribute>]
-        override this.Body =
-            Client.focusInput ()
-            Client.urlForm ()
+        type Viewer () =
+            inherit Web.Control ()
+            [<JavaScriptAttribute>]
+            override this.Body = urlForm ()

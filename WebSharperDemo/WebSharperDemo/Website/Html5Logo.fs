@@ -53,10 +53,9 @@ module Html5Logo =
             element
             |>! OnAfterRender (fun x -> JQuery.Of(x.Dom).FadeIn(1000.).Ignore)
                 
-        type LogoViewer() =
+        type Viewer() =
 
             inherit Web.Control()
 
             [<JavaScript>]
             override __.Body = canvas() :> _
-

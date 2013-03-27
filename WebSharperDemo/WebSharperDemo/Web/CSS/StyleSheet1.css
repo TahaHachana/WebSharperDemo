@@ -1,4 +1,31 @@
-﻿#slideshow
+﻿#container {
+    margin-top: 80px;
+}
+
+.push {
+    margin-bottom: 40px;
+}
+
+.home-btn {
+    width: 150px;
+}
+
+#seed {
+    margin-bottom: 10px;
+}
+
+#locate-me {
+    margin-top: 10px;
+}
+
+#forkme {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 0;    
+}
+
+#slideshow
 {
      height: 512px;
      width: 958px;

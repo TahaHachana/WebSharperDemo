@@ -34,14 +34,29 @@
   <Import Project="WebSharper.targets" Condition="Exists('WebSharper.targets')" />
   <Import Project="$(WEBSHARPER_HOME)/IntelliFactory.WebSharper.Sitelets.targets" />
   <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Forkme.fs" />
+    <Compile Include="Geolocation.fs" />
     <Compile Include="Html5Logo.fs" />
     <Compile Include="Crawler.fs" />
     <Compile Include="Slideshow.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="Views.fs" />
+    <Compile Include="Controller.fs" />
     <Compile Include="Site.fs" />
     <None Include="WebSharper.targets" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ExtSharper">
+      <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net40\ExtSharper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IntelliFactory.WebSharper.Google.Maps">
+      <HintPath>..\..\packages\WebSharper.Google.Maps.2.4.52.144\lib\IntelliFactory.WebSharper.Google.Maps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="Spidy">
