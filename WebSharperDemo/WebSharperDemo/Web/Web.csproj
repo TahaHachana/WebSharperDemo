@@ -12,6 +12,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="*.aspx" />
@@ -65,14 +72,15 @@
     <Content Include="Scripts\IntelliFactory.WebSharper.Html.dll.min.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.js" />
     <Content Include="Scripts\IntelliFactory.WebSharper.JQueryUI.dll.min.js" />
-    <Content Include="Scripts\Website.dll.js" />
-    <Content Include="Scripts\Website.dll.min.js" />
     <Content Include="Content\**\*.*" />
+    <Content Include="Scripts\Website.dll.min.js" />
     <Content Include="Themes\**\*.*" />
     <Content Include="Views\**\*.*" />
     <Content Include="*.asax" />
     <Compile Include="*.asax.cs" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="*.html" />
   </ItemGroup>
   <ItemGroup>

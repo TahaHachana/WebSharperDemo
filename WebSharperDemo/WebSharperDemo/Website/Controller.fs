@@ -15,5 +15,6 @@ module Controller =
                 | Geolocation -> Views.geolocation
                 | Html5Logo   -> Views.html5Logo
                 | Slideshow   -> Views.slideshow
+                | Twitter     -> Views.twitter
         
         { Handle = handle }

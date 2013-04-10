@@ -7,6 +7,7 @@
     <ProjectGuid>{889488c9-7e25-455a-9c22-7a8a24c24656}</ProjectGuid>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +38,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="Forkme.fs" />
+    <Compile Include="Twitter.fs" />
     <Compile Include="Geolocation.fs" />
     <Compile Include="Html5Logo.fs" />
     <Compile Include="Crawler.fs" />

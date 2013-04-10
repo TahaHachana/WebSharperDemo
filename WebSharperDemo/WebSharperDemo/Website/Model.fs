@@ -9,3 +9,4 @@ module Model =
         | Geolocation
         | Html5Logo
         | Slideshow
+        | Twitter

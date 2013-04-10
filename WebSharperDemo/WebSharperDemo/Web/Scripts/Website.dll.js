@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Crawler,Client,jQuery,WebSharper,Arrays,Html,Default,List,HTML5,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Forkme,Operators,Geolocation,google,Unchecked,Strings,window,Html5Logo,Client1,Seq,Slideshow,setInterval;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Crawler,Client,jQuery,WebSharper,Arrays,Html,Default,List,HTML5,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Forkme,Operators,Geolocation,google,Unchecked,Strings,window,Html5Logo,Client1,Seq,Slideshow,setInterval,RegExp,Twitter,Client2,String,T;
  Runtime.Define(Global,{
   Website:{
    Crawler:{
@@ -521,6 +521,169 @@
      });
      return f(x);
     })
+   },
+   Twitter:{
+    Client:{
+     atRegex:Runtime.Field(function()
+     {
+      return new RegExp("(@)([A-Za-z0-9-_]+)","g");
+     }),
+     displayTweets:function(elt)
+     {
+      return jQuery.getJSON("http://search.twitter.com/search.json?q=%23fsharp&amp;rpp=50&amp;callback=?",Runtime.Tupled(function(tupledArg)
+      {
+       var data,_arg1,x,x1,f,mapping,f1,action;
+       data=tupledArg[0];
+       _arg1=tupledArg[1];
+       x=(x1=data.Results,(f=(mapping=function(result)
+       {
+        var tweetHtml;
+        tweetHtml=(Client2.linkify())(result.Text);
+        return Client2.tweetLi(result.FromUser,result.IdStr,result.ProfileImageUrl,result.FromUserName,tweetHtml,result.CreatedAt);
+       },function(array)
+       {
+        return Arrays.map(mapping,array);
+       }),f(x1)));
+       f1=(action=function(arg00)
+       {
+        return elt.AppendI(arg00);
+       },function(array)
+       {
+        return Arrays.iter(action,array);
+       });
+       return f1(x);
+      }));
+     },
+     handleTweetActions:function()
+     {
+      var jquery;
+      jquery=jQuery("a.tweet-action-link");
+      return jquery.click(function(event)
+      {
+       var href,x,f;
+       event.preventDefault();
+       href=this.getAttribute("href");
+       x=window.showModalDialog(href);
+       f=function(value)
+       {
+        value;
+       };
+       return f(x);
+      });
+     },
+     hashRegex:Runtime.Field(function()
+     {
+      return new RegExp("(#)([A-Za-z0][A-Za-z0-9-_]+)","g");
+     }),
+     linkify:Runtime.Field(function()
+     {
+      var f,f1,g,g1;
+      f=(f1=function(str)
+      {
+       return Client2.replaceUrls(str);
+      },(g=function(str)
+      {
+       return Client2.replaceUsers(str);
+      },function(x)
+      {
+       return g(f1(x));
+      }));
+      g1=function(str)
+      {
+       return Client2.replaceHashs(str);
+      };
+      return function(x)
+      {
+       return g1(f(x));
+      };
+     }),
+     main:function()
+     {
+      var x,f,f1;
+      x=Default.UL(List.ofArray([Default.Attr().Class("unstyled")]));
+      f=(f1=function(elt)
+      {
+       var x1,f2,f4;
+       x1=(f2=function()
+       {
+        var x2,f3;
+        x2=Client2.displayTweets(elt);
+        f3=function(value)
+        {
+         value;
+        };
+        f3(x2);
+        Client2.toggleActionsVisibility();
+        Client2.handleTweetActions();
+        return Concurrency.Return(null);
+       },Concurrency.Delay(f2));
+       f4=function(arg00)
+       {
+        var t;
+        t={
+         $:0
+        };
+        return Concurrency.Start(arg00);
+       };
+       return f4(x1);
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(x);
+      return x;
+     },
+     replaceHashs:function(str)
+     {
+      return(new String(str)).replace(Client2.hashRegex(),"<a href=\"https://twitter.com/search/?q=%23$2\" target=\"_blank\">#$2</a>");
+     },
+     replaceUrls:function(str)
+     {
+      return(new String(str)).replace(Client2.urlRegex(),"<a href=\"$1\" target=\"_blank\">$1</a>");
+     },
+     replaceUsers:function(str)
+     {
+      return(new String(str)).replace(Client2.atRegex(),"<a href=\"https://twitter.com/$2\" target=\"_blank\">@$2</a>");
+     },
+     toggleActionsVisibility:function()
+     {
+      var jquery;
+      jquery=jQuery(".tweet");
+      jquery.mouseenter(function()
+      {
+       return jQuery(".tweetActions",this).css("visibility","visible");
+      });
+      return jquery.mouseleave(function()
+      {
+       return jQuery(".tweetActions",this).css("visibility","hidden");
+      });
+     },
+     tweetLi:function(screenName,tweetId,profileImage,fullName,tweetHtml,creationDate)
+     {
+      var profileLink,replyLink,retweetLink,favoriteLink,p,_this,x,_this1,x1,_this2,_this3,_this4,_this5;
+      profileLink="https://twitter.com/"+screenName;
+      replyLink="https://twitter.com/intent/tweet?in_reply_to="+tweetId;
+      retweetLink="https://twitter.com/intent/retweet?tweet_id="+tweetId;
+      favoriteLink="https://twitter.com/intent/favorite?tweet_id="+tweetId;
+      p=Default.P(Runtime.New(T,{
+       $:0
+      }));
+      p.set_Html(tweetHtml);
+      return Operators.add(Default.LI(List.ofArray([Default.Attr().Class("tweet"),(_this=Default.Attr(),_this.NewAttr("style","clear: both;"))])),List.ofArray([Default.Div(List.ofArray([Operators.add(Operators.add(Default.A(List.ofArray([Default.HRef(profileLink),Default.Attr().Class("twitterProfileLink")])),List.ofArray([Default.Img(List.ofArray([Default.Src(profileImage),Default.Alt(fullName),Default.Attr().Class("avatar"),Default.Height("48"),Default.Width("48")])),(x=List.ofArray([Default.Text(fullName)]),(_this1=Default.Tags(),_this1.NewTag("strong",x)))])),List.ofArray([Default.Text(" @"+screenName)])),Default.Br(Runtime.New(T,{
+       $:0
+      })),(x1=List.ofArray([Default.Text(creationDate)]),(_this2=Default.Tags(),_this2.NewTag("small",x1))),p,Operators.add(Default.Div(List.ofArray([Default.Attr().Class("tweetActions"),(_this3=Default.Attr(),_this3.NewAttr("style","visibility: hidden;"))])),List.ofArray([Operators.add(Default.A(List.ofArray([Default.HRef(replyLink),Default.Attr().Class("tweet-action-link"),(_this4=Default.Attr(),_this4.NewAttr("style","margin-right: 5px;"))])),List.ofArray([Default.Text("Reply")])),Operators.add(Default.A(List.ofArray([Default.HRef(retweetLink),Default.Attr().Class("tweet-action-link"),(_this5=Default.Attr(),_this5.NewAttr("style","margin-right: 5px;"))])),List.ofArray([Default.Text("Retweet")])),Operators.add(Default.A(List.ofArray([Default.HRef(favoriteLink),Default.Attr().Class("tweet-action-link")])),List.ofArray([Default.Text("Favorite")]))]))]))]));
+     },
+     urlRegex:Runtime.Field(function()
+     {
+      return new RegExp("([A-Za-z]+:\\/\\/[A-Za-z0-9-_]+\\.[A-Za-z0-9-_:%&amp;;\\?\\/.=]+)","g");
+     })
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Client2.main();
+     }
+    })
    }
   }
  });
@@ -555,10 +718,19 @@
   Client1=Runtime.Safe(Html5Logo.Client);
   Seq=Runtime.Safe(WebSharper.Seq);
   Slideshow=Runtime.Safe(Website.Slideshow);
-  return setInterval=Runtime.Safe(Global.setInterval);
+  setInterval=Runtime.Safe(Global.setInterval);
+  RegExp=Runtime.Safe(Global.RegExp);
+  Twitter=Runtime.Safe(Website.Twitter);
+  Client2=Runtime.Safe(Twitter.Client);
+  String=Runtime.Safe(Global.String);
+  return T=Runtime.Safe(List.T);
  });
  Runtime.OnLoad(function()
  {
+  Client2.urlRegex();
+  Client2.linkify();
+  Client2.hashRegex();
+  Client2.atRegex();
   Slideshow.slides();
  });
 }());
