@@ -1,67 +1,58 @@
 ﻿namespace Website
 
-open IntelliFactory.WebSharper
-
 module Twitter =
+
+    open IntelliFactory.WebSharper
     
-//    [<JavaScript>]
+    [<JavaScript>]
     module Client =
 
-//        open IntelliFactory.WebSharper.EcmaScript
         open IntelliFactory.WebSharper.Html
         open IntelliFactory.WebSharper.JQuery
 
         type Tweet =
             {
-                CreatedAt            : string
-                FromUser             : string
-                FromUserIdId         : string
-                FromUserIdIdStr      : string
-                FromUserName         : string
-                Geo                  : string
-                Id                   : string
-                IdStr                : string
-                IsoLanguageCode      : string
-                Metadata             : obj
-                ProfileImageUrl      : string
-                ProfileImageUrlHttps : string
-                Source               : string
-                Text                 : string
+                created_at              : string
+                from_user               : string
+                from_user_id            : string
+                from_user_id_str        : string
+                from_user_name          : string
+                geo                     : string
+                id                      : string
+                id_str                  : string
+                iso_language_code       : string
+                metadata                : obj
+                profile_image_url       : string
+                profile_image_url_https : string
+                source                  : string
+                text                    : string
             }
 
         type Result =
             {
-                CompletedIn    : string
-                MaxId          : string
-                MaxIdStr       : string
-                NextPage       : string
-                Page           : string
-                Query          : string
-                RefreshUrl     : string
-                Results        : Tweet []
-                ResultsPerPage : string
-                SinceId        : string
-                SinceIdStr     : string
+                completed_in     : string
+                max_id           : string
+                max_id_str       : string
+                next_page        : string
+                page             : string
+                query            : string
+                refresh_url      : string
+                results          : Tweet []
+                results_per_page : string
+                since_id         : string
+                since_id_str     : string
             }
 
-        [<JavaScript>]
         let atRegex   = EcmaScript.RegExp("(@)([A-Za-z0-9-_]+)", "g")
-        [<JavaScript>]
         let hashRegex = EcmaScript.RegExp("(#)([A-Za-z0][A-Za-z0-9-_]+)", "g")
-        [<JavaScript>]
         let urlRegex  = EcmaScript.RegExp("([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&amp;;\?\/.=]+)", "g")
 
-        [<JavaScript>]
         let replaceUsers (str : string) = EcmaScript.String(str).Replace(atRegex, "<a href=\"https://twitter.com/$2\" target=\"_blank\">@$2</a>")
-        [<JavaScript>]
         let replaceHashs (str : string) = EcmaScript.String(str).Replace(hashRegex, "<a href=\"https://twitter.com/search/?q=%23$2\" target=\"_blank\">#$2</a>")
-        [<JavaScript>]
-        let replaceUrls (str : string) = EcmaScript.String(str).Replace(urlRegex, "<a href=\"$1\" target=\"_blank\">$1</a>")
+        let replaceUrls (str : string)  = EcmaScript.String(str).Replace(urlRegex, "<a href=\"$1\" target=\"_blank\">$1</a>")
 
-        [<JavaScript>]
         let linkify = replaceUrls >> replaceUsers >> replaceHashs
 
-        [<JavaScript>]
         let tweetLi screenName tweetId profileImage fullName tweetHtml creationDate =
             let profileLink  = "https://twitter.com/"                          + screenName
             let replyLink    = "https://twitter.com/intent/tweet?in_reply_to=" + tweetId
@@ -86,15 +77,11 @@ module Twitter =
                 ]
             ]
 
-        [<JavaScript>]
         let toggleActionsVisibility() =
             let jquery = JQuery.Of ".tweet"
-            jquery.Mouseenter(fun x _ ->
-                JQuery.Of(".tweetActions", x).Css("visibility", "visible").Ignore).Ignore
-            jquery.Mouseleave(fun x _ ->
-                JQuery.Of(".tweetActions", x).Css("visibility", "hidden").Ignore).Ignore
+            jquery.Mouseenter(fun x _ -> JQuery.Of(".tweetActions", x).Css("visibility", "visible").Ignore).Ignore
+            jquery.Mouseleave(fun x _ -> JQuery.Of(".tweetActions", x).Css("visibility", "hidden").Ignore).Ignore
 
-        [<JavaScript>]
         let handleTweetActions() =
             let jquery = JQuery.Of "a.tweet-action-link"
             jquery.Click(fun elt event ->
@@ -102,17 +89,15 @@ module Twitter =
                 let href = elt.GetAttribute "href"
                 Html5.Window.Self.ShowModalDialog href |> ignore).Ignore
 
-        [<JavaScript>]
         let displayTweets (elt : Element) =       
             JQuery.GetJSON("http://search.twitter.com/search.json?q=%23fsharp&amp;rpp=50&amp;callback=?", (fun (data, _) ->
                 let data = As<Result> data
-                data.Results
-                |> Array.map (fun result ->
-                    let tweetHtml = linkify <| result.Text
-                    tweetLi result.FromUser result.IdStr result.ProfileImageUrl result.FromUserName tweetHtml result.CreatedAt)
-                |> Array.iter elt.Append))
+                data.results
+                |> Array.iter (fun result ->
+                    let tweetHtml = linkify <| result.text
+                    tweetLi result.from_user result.id_str result.profile_image_url result.from_user_name tweetHtml result.created_at
+                    |> elt.Append)))
 
-        [<JavaScript>]
         let main() =
             UL [Attr.Class "unstyled"]
             |>! OnAfterRender (fun elt ->

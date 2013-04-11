@@ -532,26 +532,25 @@
      {
       return jQuery.getJSON("http://search.twitter.com/search.json?q=%23fsharp&amp;rpp=50&amp;callback=?",Runtime.Tupled(function(tupledArg)
       {
-       var data,_arg1,x,x1,f,mapping,f1,action;
+       var data,_arg1,x,f,action;
        data=tupledArg[0];
        _arg1=tupledArg[1];
-       x=(x1=data.Results,(f=(mapping=function(result)
+       x=data.results;
+       f=(action=function(result)
        {
-        var tweetHtml;
-        tweetHtml=(Client2.linkify())(result.Text);
-        return Client2.tweetLi(result.FromUser,result.IdStr,result.ProfileImageUrl,result.FromUserName,tweetHtml,result.CreatedAt);
-       },function(array)
-       {
-        return Arrays.map(mapping,array);
-       }),f(x1)));
-       f1=(action=function(arg00)
-       {
-        return elt.AppendI(arg00);
+        var tweetHtml,x1,f1;
+        tweetHtml=(Client2.linkify())(result.text);
+        x1=Client2.tweetLi(result.from_user,result.id_str,result.profile_image_url,result.from_user_name,tweetHtml,result.created_at);
+        f1=function(arg00)
+        {
+         return elt.AppendI(arg00);
+        };
+        return f1(x1);
        },function(array)
        {
         return Arrays.iter(action,array);
        });
-       return f1(x);
+       return f(x);
       }));
      },
      handleTweetActions:function()
