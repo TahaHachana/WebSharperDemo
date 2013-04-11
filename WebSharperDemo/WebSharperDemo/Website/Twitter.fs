@@ -96,15 +96,18 @@ module Twitter =
                 |> Array.iter (fun result ->
                     let tweetHtml = linkify <| result.text
                     tweetLi result.from_user result.id_str result.profile_image_url result.from_user_name tweetHtml result.created_at
-                    |> elt.Append)))
+                    |> elt.Append))
+            ).Then(
+                (fun _ ->
+                    do toggleActionsVisibility()
+                    do handleTweetActions()),
+                (fun _ -> JavaScript.Alert "An error occured."))
 
         let main() =
             UL [Attr.Class "unstyled"]
             |>! OnAfterRender (fun elt ->
                 async {
                     displayTweets elt |> ignore
-                    do toggleActionsVisibility()
-                    do handleTweetActions()
                 } |> Async.Start)
 
     type Control() =

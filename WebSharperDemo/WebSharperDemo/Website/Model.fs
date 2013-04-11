@@ -3,10 +3,10 @@
 module Model =
 
     type Action =
-        | Home
         | Crawler
         | Custom404
         | Geolocation
+        | Home
         | Html5Logo
         | Slideshow
         | Twitter

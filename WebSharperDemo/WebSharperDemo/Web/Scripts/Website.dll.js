@@ -551,7 +551,14 @@
         return Arrays.iter(action,array);
        });
        return f(x);
-      }));
+      })).then(function()
+      {
+       Client2.toggleActionsVisibility();
+       return Client2.handleTweetActions();
+      },function()
+      {
+       return alert("An error occured.");
+      });
      },
      handleTweetActions:function()
      {
@@ -612,8 +619,6 @@
          value;
         };
         f3(x2);
-        Client2.toggleActionsVisibility();
-        Client2.handleTweetActions();
         return Concurrency.Return(null);
        },Concurrency.Delay(f2));
        f4=function(arg00)
