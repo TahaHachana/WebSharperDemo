@@ -1,2 +1,3 @@
 User-Agent: *
 Disallow: /Custom404
+Disallow: /Fantomas

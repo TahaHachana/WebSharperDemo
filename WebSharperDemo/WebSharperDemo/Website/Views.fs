@@ -144,3 +144,19 @@ module Views =
                 ]
                 footer
             ]
+
+    let fantomas =
+        withMainTemplate "Online F# Code Formatter" "A Web-based FSharp code formatting tool. " <| fun ctx ->
+            [
+                Div [Class "wrap"] -< [
+                    navigation None
+                    Div [new Forkme.Viewer()]
+                    Div [Class "container"; Id "push"] -< [
+                        Div [Class "page-header"] -< [
+                            H1 [Text "F# Code Formatter"]
+                        ]
+                        Div [new Fantomas.Control()]
+                    ]
+                ]
+                footer
+            ]

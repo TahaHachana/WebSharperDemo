@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Crawler,Client,jQuery,WebSharper,Arrays,Html,Default,List,HTML5,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Forkme,Operators,Geolocation,google,Unchecked,Strings,window,Html5Logo,Client1,Seq,Slideshow,setInterval,RegExp,Twitter,Client2,String,T;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Website,Crawler,Client,jQuery,WebSharper,Arrays,Html,Default,List,HTML5,EventsPervasives,Remoting,alert,Concurrency,Formlet,Formlet1,Enhance,Data,Operators,Fantomas,Client1,T,Forkme,Geolocation,google,Unchecked,Strings,window,Html5Logo,Client2,Seq,Slideshow,setInterval,RegExp,Twitter,Client3,String;
  Runtime.Define(Global,{
   Website:{
    Crawler:{
@@ -169,6 +169,163 @@
      }
     }
    },
+   Fantomas:{
+    Client:{
+     config:Runtime.Field(function()
+     {
+      var _this,x,_this1,f,x1,_this2,x2,x3,_this3,x4,_this4,x5,_this5,x6,_this6,x7,_this7,x8,_this8,x9,_this9,xa,_thisa,_thisb;
+      return Operators.add(Default.Div(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","position: fixed; top: 45px; right: 200px; background-color: white; border: 1px solid;"))])),List.ofArray([(x=Operators.add(Default.Div(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","font-weight: bold; background-color: black; color: white; padding: 10px; cursor: pointer;"))])),List.ofArray([Default.Text("Config")])),(f=(x1=function()
+      {
+       return function()
+       {
+        return jQuery("#form").toggle();
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      }),(f(x),x))),Operators.add(Default.Div(List.ofArray([Default.Id("form"),(_this2=Default.Attr(),_this2.NewAttr("style","display: none; margin: 10px; width: 300px;"))])),List.ofArray([Default.Form(List.ofArray([(x2=List.ofArray([(x3=List.ofArray([Default.Text("Formatting Configuration")]),(_this3=Default.Tags(),_this3.NewTag("legend",x3))),Client1.indentSpaceNum(),(x4=List.ofArray([Default.Text("Page width")]),(_this4=Default.Tags(),_this4.NewTag("label",x4))),Client1.pageWidth(),Default.Hr(Runtime.New(T,{
+       $:0
+      })),Operators.add((x5=List.ofArray([Default.Attr().Class("checkbox")]),(_this5=Default.Tags(),_this5.NewTag("label",x5))),List.ofArray([Client1.semicolonAtEndOfLine(),Default.Text("Semicolon at end of line")])),Operators.add((x6=List.ofArray([Default.Attr().Class("checkbox")]),(_this6=Default.Tags(),_this6.NewTag("label",x6))),List.ofArray([Client1.spaceBeforeArgument(),Default.Text("Space before argument")])),Operators.add((x7=List.ofArray([Default.Attr().Class("checkbox")]),(_this7=Default.Tags(),_this7.NewTag("label",x7))),List.ofArray([Client1.spaceBeforeColon(),Default.Text("Space before colon")])),Operators.add((x8=List.ofArray([Default.Attr().Class("checkbox")]),(_this8=Default.Tags(),_this8.NewTag("label",x8))),List.ofArray([Client1.spaceAfterComma(),Default.Text("Space after comma")])),Operators.add((x9=List.ofArray([Default.Attr().Class("checkbox")]),(_this9=Default.Tags(),_this9.NewTag("label",x9))),List.ofArray([Client1.spaceAfterSemicolon(),Default.Text("Space after semicolon")])),Operators.add((xa=List.ofArray([Default.Attr().Class("checkbox")]),(_thisa=Default.Tags(),_thisa.NewTag("label",xa))),List.ofArray([Client1.indentOnTryWith(),Default.Text("Indent on try with")]))]),(_thisb=Default.Tags(),_thisb.NewTag("fieldset",x2)))]))]))]));
+     }),
+     indentOnTryWith:Runtime.Field(function()
+     {
+      var _this;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox"))]));
+     }),
+     indentSpaceNum:Runtime.Field(function()
+     {
+      var x,f,f1;
+      x=Default.Select(Runtime.New(T,{
+       $:0
+      }));
+      f=(f1=function(elt)
+      {
+       return elt.set_Html("<select>\r\n                        <option>1</option>\r\n                        <option>2</option>\r\n                        <option>3</option>\r\n                        <option selected='selected'>4</option>\r\n                        <option>5</option>\r\n                        <option>6</option>\r\n                        <option>7</option>\r\n                        <option>8</option>\r\n                        <option>9</option>\r\n                        <option>10</option>\r\n                    </select>");
+      },function(w)
+      {
+       return Operators.OnAfterRender(f1,w);
+      });
+      f(x);
+      return x;
+     }),
+     main:function()
+     {
+      var textArea,_this,_textArea_,_this1,btn,x,el,_this2,inner,f,x1;
+      textArea=Default.TextArea(List.ofArray([(_this=Default.Attr(),_this.NewAttr("style","width: 450px; height: 600px; overflow: scroll; word-wrap: normal;"))]));
+      _textArea_=Default.TextArea(List.ofArray([(_this1=Default.Attr(),_this1.NewAttr("style","width: 450px; height: 600px; overflow: scroll; word-wrap: normal;"))]));
+      btn=(x=(el=Default.Button(List.ofArray([Default.Attr().Class("span2 btn btn-primary"),(_this2=Default.Attr(),_this2.NewAttr("style","width: 100px; height: 40px; margin-top: 200px;"))])),(inner=Default.Text("Format"),Operators.add(el,List.ofArray([inner])))),(f=(x1=function(elt)
+      {
+       return function()
+       {
+        var x2,f1,f3;
+        x2=(f1=function()
+        {
+         var objectArg,arg00,config,_this3,objectArg1,arg001,_this4,objectArg2,arg002,_this5,objectArg3,arg003,_this6,objectArg4,arg004,_this7,objectArg5,arg005,_this8,objectArg6,arg006,x3,f2;
+         objectArg=elt["HtmlProvider@32"];
+         ((arg00=elt.Body,function(arg10)
+         {
+          return function(arg20)
+          {
+           return objectArg.SetAttribute(arg00,arg10,arg20);
+          };
+         })("disabled"))("disabled");
+         config={
+          IndentSpaceNum:Client1.indentSpaceNum().get_Value(),
+          PageWidth:Client1.pageWidth().get_Value(),
+          SemicolonAtEndOfLine:(_this3=Client1.semicolonAtEndOfLine(),(objectArg1=_this3["HtmlProvider@32"],(arg001=_this3.Body,function(arg10)
+          {
+           return objectArg1.HasAttribute(arg001,arg10);
+          })("checked"))),
+          SpaceBeforeArgument:(_this4=Client1.spaceBeforeArgument(),(objectArg2=_this4["HtmlProvider@32"],(arg002=_this4.Body,function(arg10)
+          {
+           return objectArg2.HasAttribute(arg002,arg10);
+          })("checked"))),
+          SpaceBeforeColon:(_this5=Client1.spaceBeforeColon(),(objectArg3=_this5["HtmlProvider@32"],(arg003=_this5.Body,function(arg10)
+          {
+           return objectArg3.HasAttribute(arg003,arg10);
+          })("checked"))),
+          SpaceAfterComma:(_this6=Client1.spaceAfterComma(),(objectArg4=_this6["HtmlProvider@32"],(arg004=_this6.Body,function(arg10)
+          {
+           return objectArg4.HasAttribute(arg004,arg10);
+          })("checked"))),
+          SpaceAfterSemicolon:(_this7=Client1.spaceAfterSemicolon(),(objectArg5=_this7["HtmlProvider@32"],(arg005=_this7.Body,function(arg10)
+          {
+           return objectArg5.HasAttribute(arg005,arg10);
+          })("checked"))),
+          IndentOnTryWith:(_this8=Client1.indentOnTryWith(),(objectArg6=_this8["HtmlProvider@32"],(arg006=_this8.Body,function(arg10)
+          {
+           return objectArg6.HasAttribute(arg006,arg10);
+          })("checked")))
+         };
+         _textArea_.set_Value("");
+         x3=Remoting.Async("Website:1",[textArea.get_Value(),config]);
+         f2=function(_arg11)
+         {
+          var objectArg7,arg007;
+          _textArea_.set_Value(_arg11);
+          objectArg7=elt["HtmlProvider@32"];
+          (arg007=elt.Body,function(arg10)
+          {
+           return objectArg7.RemoveAttribute(arg007,arg10);
+          })("disabled");
+          return Concurrency.Return(null);
+         };
+         return Concurrency.Bind(x3,f2);
+        },Concurrency.Delay(f1));
+        f3=function(arg00)
+        {
+         var t;
+         t={
+          $:0
+         };
+         return Concurrency.Start(arg00);
+        };
+        return f3(x2);
+       };
+      },function(arg10)
+      {
+       return EventsPervasives.Events().OnClick(x1,arg10);
+      }),(f(x),x)));
+      return Default.Div(List.ofArray([Client1.config(),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("row")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("span5")])),List.ofArray([Default.H3(List.ofArray([Default.Text("F# Code")])),textArea])),btn,Operators.add(Default.Div(List.ofArray([Default.Attr().Class("span5")])),List.ofArray([Default.H3(List.ofArray([Default.Text("Formatted Output")])),_textArea_]))]))]));
+     },
+     pageWidth:Runtime.Field(function()
+     {
+      var _this;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("value","80"))]));
+     }),
+     semicolonAtEndOfLine:Runtime.Field(function()
+     {
+      var _this,_this1;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox")),(_this1=Default.Attr(),_this1.NewAttr("checked","checked"))]));
+     }),
+     spaceAfterComma:Runtime.Field(function()
+     {
+      var _this,_this1;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox")),(_this1=Default.Attr(),_this1.NewAttr("checked","checked"))]));
+     }),
+     spaceAfterSemicolon:Runtime.Field(function()
+     {
+      var _this,_this1;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox")),(_this1=Default.Attr(),_this1.NewAttr("checked","checked"))]));
+     }),
+     spaceBeforeArgument:Runtime.Field(function()
+     {
+      var _this;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox"))]));
+     }),
+     spaceBeforeColon:Runtime.Field(function()
+     {
+      var _this,_this1;
+      return Default.Input(List.ofArray([(_this=Default.Attr(),_this.NewAttr("type","checkbox")),(_this1=Default.Attr(),_this1.NewAttr("checked","checked"))]));
+     })
+    },
+    Control:Runtime.Class({
+     get_Body:function()
+     {
+      return Client1.main();
+     }
+    })
+   },
    Forkme:{
     Viewer:Runtime.Class({
      get_Body:function()
@@ -307,7 +464,7 @@
      Viewer:Runtime.Class({
       get_Body:function()
       {
-       return Client1.canvas();
+       return Client2.canvas();
       }
      }),
      canvas:function()
@@ -321,12 +478,12 @@
       context.font="60px 'Gill Sans Ultra Bold'";
       context.fillText("HTML",40,60);
       context.translate(0,70);
-      Client1.drawShape(context,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
-      Client1.drawShape(context,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
-      Client1.drawShape(context,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
-      Client1.drawShape(context,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
-      Client1.drawShape(context,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
-      Client1.drawShape(context,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
+      Client2.drawShape(context,"#E34C26",44,255,List.ofArray([[22,5],[267,5],[244,255],[144,283]]));
+      Client2.drawShape(context,"#F06529",144,262,List.ofArray([[225,239],[244,25],[144,25]]));
+      Client2.drawShape(context,"#EBEBEB",144,118,List.ofArray([[103,118],[101,87],[144,87],[144,56],[67,56],[75,149],[144,149]]));
+      Client2.drawShape(context,"#EBEBEB",144,198,List.ofArray([[110,189],[108,164],[77,164],[81,212],[144,230]]));
+      Client2.drawShape(context,"#FFFFFF",144,118,List.ofArray([[144,149],[182,149],[178,189],[144,198],[144,230],[207,212],[215,118]]));
+      Client2.drawShape(context,"#FFFFFF",144,56,List.ofArray([[144,87],[218,87],[221,56]]));
       f=(f1=function(x1)
       {
        return jQuery(x1.Body).fadeIn(1000);
@@ -349,7 +506,7 @@
        var x,y;
        x=tupledArg[0];
        y=tupledArg[1];
-       return Client1.drawLine(context,x,y);
+       return Client2.drawLine(context,x,y);
       }),function(list)
       {
        return Seq.iter(action,list);
@@ -373,7 +530,7 @@
          arg01=tupledArg[1];
          return _.moveTo(arg00,arg01);
         }))(moveTo);
-        return Client1.drawPaths(_,coords);
+        return Client2.drawPaths(_,coords);
        };
       }))([_2,_3]))(_4);
      }
@@ -539,8 +696,8 @@
        f=(action=function(result)
        {
         var tweetHtml,x1,f1;
-        tweetHtml=(Client2.linkify())(result.text);
-        x1=Client2.tweetLi(result.from_user,result.id_str,result.profile_image_url,result.from_user_name,tweetHtml,result.created_at);
+        tweetHtml=(Client3.linkify())(result.text);
+        x1=Client3.tweetLi(result.from_user,result.id_str,result.profile_image_url,result.from_user_name,tweetHtml,result.created_at);
         f1=function(arg00)
         {
          return elt.AppendI(arg00);
@@ -553,8 +710,8 @@
        return f(x);
       })).then(function()
       {
-       Client2.toggleActionsVisibility();
-       return Client2.handleTweetActions();
+       Client3.toggleActionsVisibility();
+       return Client3.handleTweetActions();
       },function()
       {
        return alert("An error occured.");
@@ -586,17 +743,17 @@
       var f,f1,g,g1;
       f=(f1=function(str)
       {
-       return Client2.replaceUrls(str);
+       return Client3.replaceUrls(str);
       },(g=function(str)
       {
-       return Client2.replaceUsers(str);
+       return Client3.replaceUsers(str);
       },function(x)
       {
        return g(f1(x));
       }));
       g1=function(str)
       {
-       return Client2.replaceHashs(str);
+       return Client3.replaceHashs(str);
       };
       return function(x)
       {
@@ -613,7 +770,7 @@
        x1=(f2=function()
        {
         var x2,f3;
-        x2=Client2.displayTweets(elt);
+        x2=Client3.displayTweets(elt);
         f3=function(value)
         {
          value;
@@ -639,15 +796,15 @@
      },
      replaceHashs:function(str)
      {
-      return(new String(str)).replace(Client2.hashRegex(),"<a href=\"https://twitter.com/search/?q=%23$2\" target=\"_blank\">#$2</a>");
+      return(new String(str)).replace(Client3.hashRegex(),"<a href=\"https://twitter.com/search/?q=%23$2\" target=\"_blank\">#$2</a>");
      },
      replaceUrls:function(str)
      {
-      return(new String(str)).replace(Client2.urlRegex(),"<a href=\"$1\" target=\"_blank\">$1</a>");
+      return(new String(str)).replace(Client3.urlRegex(),"<a href=\"$1\" target=\"_blank\">$1</a>");
      },
      replaceUsers:function(str)
      {
-      return(new String(str)).replace(Client2.atRegex(),"<a href=\"https://twitter.com/$2\" target=\"_blank\">@$2</a>");
+      return(new String(str)).replace(Client3.atRegex(),"<a href=\"https://twitter.com/$2\" target=\"_blank\">@$2</a>");
      },
      toggleActionsVisibility:function()
      {
@@ -685,7 +842,7 @@
     Control:Runtime.Class({
      get_Body:function()
      {
-      return Client2.main();
+      return Client3.main();
      }
     })
    }
@@ -711,30 +868,41 @@
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Enhance=Runtime.Safe(Formlet.Enhance);
   Data=Runtime.Safe(Formlet.Data);
-  Forkme=Runtime.Safe(Website.Forkme);
   Operators=Runtime.Safe(Html.Operators);
+  Fantomas=Runtime.Safe(Website.Fantomas);
+  Client1=Runtime.Safe(Fantomas.Client);
+  T=Runtime.Safe(List.T);
+  Forkme=Runtime.Safe(Website.Forkme);
   Geolocation=Runtime.Safe(Website.Geolocation);
   google=Runtime.Safe(Global.google);
   Unchecked=Runtime.Safe(WebSharper.Unchecked);
   Strings=Runtime.Safe(WebSharper.Strings);
   window=Runtime.Safe(Global.window);
   Html5Logo=Runtime.Safe(Website.Html5Logo);
-  Client1=Runtime.Safe(Html5Logo.Client);
+  Client2=Runtime.Safe(Html5Logo.Client);
   Seq=Runtime.Safe(WebSharper.Seq);
   Slideshow=Runtime.Safe(Website.Slideshow);
   setInterval=Runtime.Safe(Global.setInterval);
   RegExp=Runtime.Safe(Global.RegExp);
   Twitter=Runtime.Safe(Website.Twitter);
-  Client2=Runtime.Safe(Twitter.Client);
-  String=Runtime.Safe(Global.String);
-  return T=Runtime.Safe(List.T);
+  Client3=Runtime.Safe(Twitter.Client);
+  return String=Runtime.Safe(Global.String);
  });
  Runtime.OnLoad(function()
  {
-  Client2.urlRegex();
-  Client2.linkify();
-  Client2.hashRegex();
-  Client2.atRegex();
+  Client3.urlRegex();
+  Client3.linkify();
+  Client3.hashRegex();
+  Client3.atRegex();
   Slideshow.slides();
+  Client1.spaceBeforeColon();
+  Client1.spaceBeforeArgument();
+  Client1.spaceAfterSemicolon();
+  Client1.spaceAfterComma();
+  Client1.semicolonAtEndOfLine();
+  Client1.pageWidth();
+  Client1.indentSpaceNum();
+  Client1.indentOnTryWith();
+  Client1.config();
  });
 }());

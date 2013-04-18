@@ -38,6 +38,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="Forkme.fs" />
+    <Compile Include="Fantomas.fs" />
     <Compile Include="Twitter.fs" />
     <Compile Include="Geolocation.fs" />
     <Compile Include="Html5Logo.fs" />
@@ -51,8 +52,26 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Args">
+      <HintPath>..\..\packages\Fantomas.0.8.9\lib\Args.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ExtSharper">
       <HintPath>..\..\packages\ExtSharper.0.1.13\lib\Net40\ExtSharper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fantomas">
+      <HintPath>..\..\packages\Fantomas.0.8.9\lib\Fantomas.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FantomasLib">
+      <HintPath>..\..\packages\Fantomas.0.8.9\lib\FantomasLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Compiler, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.Google.Maps">
@@ -60,7 +79,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core" />
     <Reference Include="Spidy">
       <HintPath>..\..\packages\Spidy.1.0.0\lib\Net40\Spidy.dll</HintPath>
       <Private>True</Private>

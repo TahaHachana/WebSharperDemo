@@ -16,5 +16,6 @@ module Controller =
                 | Html5Logo   -> Views.html5Logo
                 | Slideshow   -> Views.slideshow
                 | Twitter     -> Views.twitter
+                | Fantomas    -> Views.fantomas
         
         { Handle = handle }

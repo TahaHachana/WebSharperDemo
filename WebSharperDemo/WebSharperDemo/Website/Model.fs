@@ -10,3 +10,4 @@ module Model =
         | Html5Logo
         | Slideshow
         | Twitter
+        | Fantomas
