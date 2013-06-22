@@ -153,10 +153,15 @@ module Views =
                     Div [new Forkme.Viewer()]
                     Div [Class "container"; Id "push"] -< [
                         Div [Class "page-header"] -< [
-                            H1 [Text "F# Code Formatter"]
+                            H2 [
+                                Text "This tool is now a "
+                                A [HRef "http://fantomasweb.apphb.com/"] -< [Text "standalone project available here"]
+                                Text "."
+                            ]
                         ]
                         Div [new Fantomas.Control()]
                     ]
                 ]
                 footer
+                Script [Src "/Scripts/BootstrapTabs.min.js"]
             ]

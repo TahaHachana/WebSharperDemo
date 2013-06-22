@@ -30,6 +30,8 @@ module Fantomas =
             IndentOnTryWith= config.IndentOnTryWith
         }
 
+    type Result = Failure | Success of string
+
     module private Server =
 
         [<Rpc>]
@@ -38,8 +40,8 @@ module Fantomas =
                 try
                     let config' = toFormatConfig config
                     let code = CodeFormatter.formatSourceString false src config'
-                    return code
-                with _ -> return ""
+                    return Success code
+                with _ -> return Failure
             }
 
     [<JavaScript>]
@@ -73,6 +75,17 @@ module Fantomas =
         let spaceAfterSemicolon = Input [Attr.Type "checkbox"; Attr.Checked "checked"]
         let indentOnTryWith = Input [Attr.Type "checkbox"]
 
+        let displayAlert success =
+            let ajq = JQuery.Of("#alert")
+            let pjq = JQuery.Of("#msg")
+            match success with
+                | false -> ajq.RemoveClass("alert-success").Text("Formatting the code failed.").Ignore
+                | true  -> ajq.AddClass("alert-success").Text("Code formatted successfully.").Ignore
+            ajq.FadeIn().Ignore
+            ajq.FadeOut(5000.).Ignore
+
+        let alert = Div [Id "alert"; Attr.Style "position: fixed; top: 40px; display: none;"; Attr.Class "offset4 span4 alert text-center"]
+
         let config =
             Div [Attr.Style "position: fixed; top: 45px; right: 200px; background-color: white; border: 1px solid;"] -< [
                 Div [Attr.Style "font-weight: bold; background-color: black; color: white; padding: 10px; cursor: pointer;"] -< [Text "Config"]
@@ -82,6 +95,7 @@ module Fantomas =
                     Form [
                         FieldSet [
                             Legend [Text "Formatting Configuration"]
+                            Label [Text "Indentation"]
                             indentSpaceNum
                             Label [Text "Page width"]
                             pageWidth
@@ -116,15 +130,15 @@ module Fantomas =
             ]
                     
         let main() =
-            let textArea = TextArea [Attr.Style "width: 450px; height: 600px; overflow: scroll; word-wrap: normal;"]
-            let textArea' = TextArea [Attr.Style "width: 450px; height: 600px; overflow: scroll; word-wrap: normal;"]
-            let btn =
-                Button [Attr.Class "span2 btn btn-primary"; Attr.Style "width: 100px; height: 40px; margin-top: 200px;"] -- Text "Format"
+            let textArea = TextArea [Attr.Style "overflow: scroll; word-wrap: normal; height: 300px;"; Attr.Class "span12"]
+            let textArea' = TextArea [Attr.Style "overflow: scroll; word-wrap: normal; height: 300px;"; Attr.Class "span12"]
+            let formatBtn =
+                Button [Attr.Class "btn btn-primary btn-large"; Attr.Style "float: left;"] -- Text "Format"
                 |>! OnClick (fun elt _ ->
                     async {
                         elt.SetAttribute("disabled", "disabled")
-//                        let loaderJquery = JQuery.Of("#loader")
-//                        loaderJquery.Css("visibility", "visible").Ignore
+                        let loaderJquery = JQuery.Of("#loader")
+                        loaderJquery.Css("visibility", "visible").Ignore
                         let config =
                             {
                                 IndentSpaceNum = indentSpaceNum.Value
@@ -137,26 +151,36 @@ module Fantomas =
                                 IndentOnTryWith = indentOnTryWith.HasAttribute("checked")
                             }
                         textArea'.Value <- ""
-                        let! code = Server.format textArea.Value config
-                        textArea'.Value <- code
-//                        loaderJquery.Css("visibility", "hidden").Ignore
+                        let! result = Server.format textArea.Value config
+                        match result with
+                            | Failure      -> displayAlert false
+                            | Success code ->
+                                textArea'.Value <- code
+                                displayAlert true
+                        loaderJquery.Css("visibility", "hidden").Ignore
                         elt.RemoveAttribute("disabled")
                     } |> Async.Start)
-
             Div [
+                alert
                 config
-                Div [Attr.Class "row"] -< [
-                    Div [Attr.Class "span5"] -< [
-                        H3 [Text "F# Code"]
-                        textArea
-                    ]
-//                    Div [Attr.Class "span2"] -< [
-                    btn
-//                        Div [] -< [Img [Src "Images/Crawler/Loader.gif"; Attr.Class "loader"; Id "loader"]]
-//                    ]
-                    Div [Attr.Class "span5"] -< [
-                        H3 [Text "Formatted Output"]
-                        textArea'
+                H3 [Text "F# Code"]
+                textArea
+                Div [
+                    formatBtn
+                    Div [Img [Attr.Style "padding: 10px; visibility: hidden;"; Src "Images/Crawler/Loader.gif"; Id "loader"]]
+                ]
+                Div [Attr.Class ""] -< [
+                    Div [Attr.Class "tabbable"] -< [
+                        UL [Attr.Class "nav nav-tabs"] -< [
+                            LI [Attr.Class "active"] -< [A [HRef "#output"; HTML5.Attr.Data "toggle" "tab"] -< [Text "Output"]]
+                            LI [A [HRef "#html"; HTML5.Attr.Data "toggle" "tab"] -< [Text "HTML"]]
+                            LI [A [HRef "#html-preview"; HTML5.Attr.Data "toggle" "tab"] -< [Text "HTML Preview"]]
+                        ]
+                        Div [Attr.Class "tab-content"] -< [
+                            Div [Attr.Class "tab-pane active"; Id "output"] -< [textArea']
+                            Div [Attr.Class "tab-pane"; Id "html"] -< []
+                            Div [Attr.Class "tab-pane"; Id "html-preview"] -< []
+                        ]
                     ]
                 ]
             ]
