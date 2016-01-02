@@ -1,6 +1,9 @@
 WebSharperDemo
 ==============
 
+This project is not maintained anymore.
+---------------------------------------
+
 About
 -----
 A collection of WebSharper samples hosted on the AppHarbor cloud: http://websharperdemo.apphb.com/
